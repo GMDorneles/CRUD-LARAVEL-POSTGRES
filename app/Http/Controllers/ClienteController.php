@@ -85,7 +85,17 @@ class ClienteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $cliente = $this->model->find($id);
+        if (!$cliente) {
+            return response('Cliente não localizado');
+        }
+        try {
+            $dados = $request->all();
+            $cliente->fill($dados)->save();
+            return response('Cliente atualizado');
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     /**
