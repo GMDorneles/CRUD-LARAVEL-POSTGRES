@@ -2,18 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cliente;
 use Illuminate\Http\Request;
 
 class ClienteController extends Controller
 {
+    protected $model;
+    public function __construct(Cliente $cliente)
+    {
+        $this->model = $cliente;
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
+    //returns everything from clients
     public function index()
     {
-        //
+        return response($this->model->all());
     }
 
     /**
@@ -34,7 +42,12 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $this->model->create($request->all());
+            return response('Criado com sucesso!');
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     /**
@@ -56,7 +69,11 @@ class ClienteController extends Controller
      */
     public function edit($id)
     {
-        //
+        $cliente = $this->model->find($id);
+        if (!$cliente) {
+            return response('Cliente não localizado');
+        }
+        return response($cliente);
     }
 
     /**
