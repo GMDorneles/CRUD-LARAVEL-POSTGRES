@@ -94,13 +94,9 @@ class ClienteController extends Controller
             return response('Cliente não localizado');
         }
         try {
-            // $this->model->create($request->all());
-
-            $cliente->update($request->all());
+            $dados = $request->all();
+            $cliente->fill($dados);
             $cliente->save();
-            // $dados = $request->all();
-            // $cliente->fill($dados);
-            // $cliente->save();
             return response('Cliente atualizado');
         } catch (\Throwable $th) {
             throw $th;
