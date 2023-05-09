@@ -40,6 +40,8 @@ class ClienteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    //create a new client
     public function store(Request $request)
     {
         try {
@@ -67,6 +69,7 @@ class ClienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    //find client by id
     public function edit($id)
     {
         $cliente = $this->model->find($id);
@@ -83,6 +86,7 @@ class ClienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    //update client by id
     public function update(Request $request, $id)
     {
         $cliente = $this->model->find($id);
@@ -90,8 +94,13 @@ class ClienteController extends Controller
             return response('Cliente não localizado');
         }
         try {
-            $dados = $request->all();
-            $cliente->fill($dados)->save();
+            // $this->model->create($request->all());
+
+            $cliente->update($request->all());
+            $cliente->save();
+            // $dados = $request->all();
+            // $cliente->fill($dados);
+            // $cliente->save();
             return response('Cliente atualizado');
         } catch (\Throwable $th) {
             throw $th;
@@ -104,8 +113,18 @@ class ClienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    //delete client
     public function destroy($id)
     {
-        //
+        $cliente = $this->model->find($id);
+        if (!$cliente) {
+            return response('client não encontrado!');
+        }
+        try {
+            $cliente->delete();
+            return response('Cliente excluido');
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 }

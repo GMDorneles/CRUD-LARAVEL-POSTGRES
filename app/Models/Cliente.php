@@ -14,6 +14,6 @@ class Cliente extends Model
         'sexo',
         'cpf',
         'contato',
-        'endereço'
+        'endereco'
     ];
 }

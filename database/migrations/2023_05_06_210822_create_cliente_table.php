@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->string('sexo', 20)->nullable();
             $table->integer('cpf')->nullable();
             $table->string('contato', 30)->nullable();
-            $table->string('endereço', 100)->nullable();
+            $table->string('endereco', 100)->nullable();
             $table->timestamps();
         });
     }
